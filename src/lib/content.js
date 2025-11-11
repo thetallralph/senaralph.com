@@ -5,7 +5,27 @@ import matter from 'gray-matter';
 import { marked } from 'marked';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const contentDir = path.join(__dirname, '..', '..', 'content');
+
+// Try multiple possible locations for content directory
+let contentDir;
+const possiblePaths = [
+	path.join(__dirname, '..', '..', 'content'),           // Dev/build location
+	path.join(process.cwd(), 'content'),                   // Current working directory
+	path.join(__dirname, 'content'),                        // Same directory as this file
+	path.join(__dirname, '..', '..', '..', 'content')      // Parent of server bundle
+];
+
+for (const testPath of possiblePaths) {
+	if (fs.existsSync(testPath)) {
+		contentDir = testPath;
+		break;
+	}
+}
+
+if (!contentDir) {
+	console.error('Content directory not found. Tried:', possiblePaths);
+	contentDir = possiblePaths[0]; // Fallback
+}
 
 // Configure marked to open all links in new tab
 const renderer = new marked.Renderer();
