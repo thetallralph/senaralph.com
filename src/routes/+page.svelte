@@ -1,4 +1,6 @@
 <script>
+	import ShareButtons from '$lib/components/ShareButtons.svelte';
+
 	export let data;
 
 	let selectedProject = null;
@@ -197,7 +199,16 @@
 				{@html selectedProject.content}
 			</div>
 		</div>
+		<!-- Share buttons for the specific project -->
+		<ShareButtons
+			title={selectedProject.title}
+			url={`https://senaralph.com/projects/${selectedProject.slug}`}
+			description={selectedProject.description}
+		/>
 	</div>
+{:else}
+	<!-- Share buttons for the main portfolio page -->
+	<ShareButtons />
 {/if}
 
 <style>
@@ -426,6 +437,7 @@
 
 	.work-content :global(p) {
 		margin-bottom: 1rem;
+		padding-left: 1.5rem;
 	}
 
 	.work-content :global(strong) {
@@ -434,6 +446,7 @@
 		display: block;
 		margin-top: 1.5rem;
 		margin-bottom: 0.5rem;
+		padding-left: 0;
 	}
 
 	.work-content :global(p:first-child) {
