@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
-const contentDir = path.resolve('content');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const contentDir = path.join(__dirname, '..', '..', 'content');
 
 // Configure marked to open all links in new tab
 const renderer = new marked.Renderer();
