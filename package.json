@@ -8,7 +8,8 @@
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build && npm run copy-content",
+		"copy-content": "cp -r content .vercel/output/functions/_[[]_-_[]_]/catchall.func/ 2>/dev/null || cp -r content .vercel/output/functions/index.func/ 2>/dev/null || echo 'Content copy: checking build structure'",
 		"preview": "vite preview"
 	},
 	"devDependencies": {

@@ -5,7 +5,9 @@ const config = {
 	kit: {
 		adapter: adapter({
 			runtime: 'nodejs20.x',
-			external: ['gray-matter', 'marked']
+			external: ['gray-matter', 'marked'],
+			// Include content directory in the deployment
+			includeFiles: ['content/**/*.md']
 		})
 	}
 };
